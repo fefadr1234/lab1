@@ -1,0 +1,47 @@
+-- Table: public.kafedra
+
+-- DROP TABLE IF EXISTS public.kafedra;
+
+CREATE TABLE IF NOT EXISTS public.kafedra
+(
+    number_kafedra integer NOT NULL,
+    "code_ fakulteta" integer NOT NULL,
+    name_kafedra text COLLATE pg_catalog."default" NOT NULL,
+    vipusk_kafedra boolean,
+    sait character varying COLLATE pg_catalog."default" NOT NULL,
+    telefon character varying COLLATE pg_catalog."default" NOT NULL,
+    CONSTRAINT kafedra_pkey PRIMARY KEY (number_kafedra)
+)
+
+TABLESPACE pg_default;
+
+ALTER TABLE IF EXISTS public.kafedra
+    OWNER to postgres;
+
+
+    -- Table: public.prepods
+
+-- DROP TABLE IF EXISTS public.prepods;
+
+CREATE TABLE IF NOT EXISTS public.prepods
+(
+    "code_Prepods" integer NOT NULL,
+    familiya text COLLATE pg_catalog."default" NOT NULL,
+    name text COLLATE pg_catalog."default" NOT NULL,
+    otchestvo text COLLATE pg_catalog."default",
+    obrazovanie text COLLATE pg_catalog."default" NOT NULL,
+    stazh real,
+    number_kafedri integer NOT NULL,
+    kontaktni_telefon character varying COLLATE pg_catalog."default" NOT NULL,
+    code_prepods character varying COLLATE pg_catalog."default",
+    CONSTRAINT prepods_pkey PRIMARY KEY ("code_Prepods"),
+    CONSTRAINT fk_prepods_kafedra FOREIGN KEY (number_kafedri)
+        REFERENCES public.kafedra (number_kafedra) MATCH SIMPLE
+        ON UPDATE NO ACTION
+        ON DELETE NO ACTION
+)
+
+TABLESPACE pg_default;
+
+ALTER TABLE IF EXISTS public.prepods
+    OWNER to postgres;
